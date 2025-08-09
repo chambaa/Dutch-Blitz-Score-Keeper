@@ -1,0 +1,231 @@
+/* Player Input Headers */
+.db-player-header-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0;
+  width: 100%;
+}
+.db-player-header-name {
+  min-width: 160px;
+  height: 1.1rem;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.25rem;
+}
+.db-player-header-pos,
+.db-player-header-neg {
+  width: 160px;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Player and Totals Layout */
+.db-player-totals-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.db-player-inputs-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 420px;
+}
+
+.db-player-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.db-player-name-input {
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid #bbb;
+  padding: 0.5rem 1rem;
+  min-width: 160px;
+  outline: none;
+}
+
+.db-player-pos-input {
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid #7ecb7e;
+  padding: 0.5rem 0.75rem;
+  width: 120px;
+  outline: none;
+}
+
+.db-player-neg-input {
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid #e07e7e;
+  padding: 0.5rem 0.75rem;
+  width: 120px;
+  outline: none;
+}
+
+.db-calc-btn-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.db-calc-btn {
+  min-width: 120px;
+}
+
+.db-totals-col {
+  margin-left: 2.5rem;
+  margin-top: 0.5rem;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.db-totals-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.db-total-value {
+  font-size: 1.1rem;
+  border-radius: 10px;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0.75rem;
+  min-width: 80px;
+  text-align: center;
+}
+.db-total-pos {
+  background: #e6f7e6;
+  color: #1a7e1a;
+}
+.db-total-neg {
+  background: #ffeaea;
+  color: #b80000;
+}
+/* General Styles */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.db-blue-btn {
+  background: rgb(109, 181, 245);
+  color: #fff;
+  border: 1px solid rgb(74, 170, 255);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.04);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.db-blue-btn:hover {
+  background: rgb(74, 170, 255);
+  color: #fff;
+  border: 1px solid rgb(109, 181, 245);
+}
+
+
+/* Main Content Styles */
+.db-main-content {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.db-player-form {
+  margin: 1.5rem;
+  min-width: 500px;
+  background: #f7f7f7;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 2.5px solid rgb(219, 219, 219);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+.db-player-label {
+  display: block;
+  color: #4e4e4e;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.db-player-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.db-player-input {
+  width: 160px;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 16px;
+  border: 2.5px solid rgb(219, 219, 219);
+  margin-bottom: 0;
+  box-sizing: border-box;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.db-player-input:focus {
+  border-color: #1a73e8;
+}
+
+/* Dutch Blitz Header Styles */
+.db-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(201, 201, 201);
+  border-bottom: 1px solid rgb(177, 177, 177);
+  padding: 0.5rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 64px;
+  box-sizing: border-box;
+}
+
+.db-logo {
+  height: 60px;
+  margin-right: 1rem;
+}
