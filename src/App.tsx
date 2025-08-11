@@ -1,7 +1,10 @@
 
+
 import { useState } from 'react'
 import logo from './assets/dutch-blitz-logo.png'
 import './App.css'
+import NumberOfPlayersInput from './NumberOfPlayersInput'
+import PlayerScoring from './PlayerScoring'
 
 
 
@@ -48,8 +51,10 @@ function App() {
   const handleCalculate = (event?: React.MouseEvent<HTMLButtonElement>) => {
     if (event) event.preventDefault();
     if (!playerNames) return;
-    const newTotals = playerNames.map((_, idx) => positivePoints[idx] + (negativeCards[idx] * -2));
-    setTotals(newTotals);
+    setTotals(prevTotals => {
+      const prev = prevTotals && prevTotals.length === playerNames.length ? prevTotals : Array(playerNames.length).fill(0);
+      return playerNames.map((_, idx) => prev[idx] + positivePoints[idx] + (negativeCards[idx] * -2));
+    });
   };
 
   return (
@@ -70,73 +75,28 @@ function App() {
       </header>
       <div className="db-main-content">
         {!playerNames && (
-          <form className="db-player-form" onSubmit={handleGo}>
-            <label htmlFor="numPlayers" className="db-player-label">
-              Enter the number of players
-            </label>
-            <div className="db-player-input-row">
-              <input
-                id="numPlayers"
-                name="numPlayers"
-                type="number"
-                min="2"
-                max="8"
-                defaultValue={numPlayers}
-                className="db-player-input"
-              />
-              <button type="submit" className="db-blue-btn">Go!</button>
-            </div>
-          </form>
+          <NumberOfPlayersInput numPlayers={numPlayers} onSubmit={handleGo} />
         )}
         {playerNames && (
-              <div className="db-player-totals-row">
+          <div className="db-player-totals-row">
             {/* Player Inputs Column */}
-                <div className="db-player-inputs-col">
-              <div className="db-totals-title">Players</div>
-              {playerNames.map((name, idx) => (
-                    <div key={idx} className="db-player-row">
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={e => handleNameChange(idx, e.target.value)}
-                        className="db-player-name-input"
-                  />
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    min="0"
-                    value={positivePoints[idx]}
-                    onChange={e => handlePositiveChange(idx, e.target.value)}
-                    placeholder="Positive Points"
-                    className="db-player-pos-input"
-                  />
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    min="0"
-                    value={negativeCards[idx]}
-                    onChange={e => handleNegativeChange(idx, e.target.value)}
-                    placeholder="Negative Cards"
-                    className="db-player-neg-input"
-                  />
-                </div>
-              ))}
-                  <div className="db-calc-btn-row">
-                    <button className="db-blue-btn db-calc-btn" onClick={handleCalculate}>
-                      Calculate
-                    </button>
-                  </div>
-            </div>
+            <PlayerScoring
+              playerNames={playerNames}
+              positivePoints={positivePoints}
+              negativeCards={negativeCards}
+              handleNameChange={handleNameChange}
+              handlePositiveChange={handlePositiveChange}
+              handleNegativeChange={handleNegativeChange}
+              handleCalculate={handleCalculate}
+            />
             {/* Totals Column */}
             {totals && (
-                  <div className="db-totals-col">
-                <div style={{ fontWeight: 'bold', marginBottom: '1rem', fontSize: '1.1rem' }}>Total</div>
-                {totals.map((total, idx) => (
-                      <div key={idx} className={`db-total-value${total >= 0 ? ' db-total-pos' : ' db-total-neg'}`}>
-                    {total}
-                  </div>
+              <div className="db-totals-col">
+                <div className="db-title">Total</div>
+                  {totals.map((total, idx) => (
+                    <div key={idx} className={`db-total-value${total >= 0 ? ' db-total-pos' : ' db-total-neg'}`}>
+                      {total}
+                    </div>
                 ))}
               </div>
             )}

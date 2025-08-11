@@ -1,127 +1,3 @@
-/* Player Input Headers */
-.db-player-header-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-  margin-left: 0;
-  width: 100%;
-}
-.db-player-header-name {
-  min-width: 160px;
-  height: 1.1rem;
-  font-size: 1.1rem;
-  color: #222;
-  font-weight: bold;
-  text-align: left;
-  margin-bottom: 0.25rem;
-}
-.db-player-header-pos,
-.db-player-header-neg {
-  width: 160px;
-  font-size: 1.1rem;
-  color: #222;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* Player and Totals Layout */
-.db-player-totals-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  margin-left: 1.5rem;
-  margin-top: 1.5rem;
-  width: 100%;
-}
-
-.db-player-inputs-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-  min-width: 420px;
-}
-
-.db-player-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  gap: 1rem;
-}
-
-.db-player-name-input {
-  font-size: 1.1rem;
-  border-radius: 12px;
-  border: 2px solid #bbb;
-  padding: 0.5rem 1rem;
-  min-width: 160px;
-  outline: none;
-}
-
-.db-player-pos-input {
-  font-size: 1.1rem;
-  border-radius: 12px;
-  border: 2px solid #7ecb7e;
-  padding: 0.5rem 0.75rem;
-  width: 120px;
-  outline: none;
-}
-
-.db-player-neg-input {
-  font-size: 1.1rem;
-  border-radius: 12px;
-  border: 2px solid #e07e7e;
-  padding: 0.5rem 0.75rem;
-  width: 120px;
-  outline: none;
-}
-
-.db-calc-btn-row {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 2rem;
-}
-
-.db-calc-btn {
-  min-width: 120px;
-}
-
-.db-totals-col {
-  margin-left: 2.5rem;
-  margin-top: 0.5rem;
-  min-width: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.db-totals-title {
-  font-weight: bold;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.db-total-value {
-  font-size: 1.1rem;
-  border-radius: 10px;
-  padding: 0.5rem 1.5rem;
-  margin-bottom: 0.75rem;
-  min-width: 80px;
-  text-align: center;
-}
-.db-total-pos {
-  background: #e6f7e6;
-  color: #1a7e1a;
-}
-.db-total-neg {
-  background: #ffeaea;
-  color: #b80000;
-}
 /* General Styles */
 #root {
   max-width: 1280px;
@@ -131,24 +7,92 @@
 }
 
 .db-blue-btn {
-  background: rgb(109, 181, 245);
-  color: #fff;
-  border: 1px solid rgb(74, 170, 255);
-  border-radius: 8px;
-  padding: 0.5rem 1.25rem;
-  font-weight: bold;
-  font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 2px 2px rgba(0,0,0,0.04);
-  transition: background 0.2s, color 0.2s, border 0.2s;
+  outline: 0;
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                
 }
 
 .db-blue-btn:hover {
-  background: rgb(74, 170, 255);
   color: #fff;
-  border: 1px solid rgb(109, 181, 245);
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
 }
 
+.db-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.db-input {
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 4px;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.db-input:focus {
+  color: #212529;
+  background-color: #fff;
+  outline: 0;
+}
+
+.db-neutral-input:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 2px rgb(13 110 253 / 25%);
+}
+
+.db-pos-input:focus {
+  border-color: #7ecb7e;
+  box-shadow: 0 0 0 2px rgba(1, 117, 18, 0.25);
+}
+
+.db-neg-input:focus {
+  border-color: #e07e7e;
+  box-shadow: 0 0 0 2px rgba(117, 9, 1, 0.25);
+}
+
+
+/* Header Styles */
+.db-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(201, 201, 201);
+  border-bottom: 1px solid rgb(177, 177, 177);
+  padding: 0.5rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 64px;
+  box-sizing: border-box;
+}
+
+.db-logo {
+  height: 60px;
+  margin-right: 1rem;
+}
 
 /* Main Content Styles */
 .db-main-content {
@@ -191,41 +135,98 @@
   align-items: center;
 }
 
-.db-player-input {
-  width: 160px;
-  padding: 0.5rem 1rem;
-  font-size: 1.1rem;
-  border-radius: 16px;
-  border: 2.5px solid rgb(219, 219, 219);
-  margin-bottom: 0;
-  box-sizing: border-box;
-  text-align: center;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.db-player-input:focus {
-  border-color: #1a73e8;
-}
-
-/* Dutch Blitz Header Styles */
-.db-header {
-  width: 100%;
+/* Player Input Headers */
+.db-player-header-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: rgb(201, 201, 201);
-  border-bottom: 1px solid rgb(177, 177, 177);
-  padding: 0.5rem 1.5rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  height: 64px;
-  box-sizing: border-box;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0;
+  width: 100%;
+}
+.db-player-header-name {
+  min-width: 160px;
+  height: 1.1rem;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.25rem;
+}
+.db-player-header-pos,
+.db-player-header-neg {
+  width: 160px;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.db-logo {
-  height: 60px;
-  margin-right: 1rem;
+/* Player and Totals Layout */
+.db-player-totals-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  width: 100%;
 }
+
+.db-player-inputs-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 420px;
+}
+
+.db-player-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.db-calc-btn-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.db-calc-btn {
+  min-width: 120px;
+}
+
+.db-totals-col {
+  margin-left: 2.5rem;
+  margin-top: 0.5rem;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.db-total-value {
+  font-size: 1.1rem;
+  border-radius: 10px;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0.75rem;
+  min-width: 80px;
+  text-align: center;
+}
+
+.db-total-pos {
+  background: #e6f7e6;
+  color: #1a7e1a;
+}
+
+.db-total-neg {
+  background: #ffeaea;
+  color: #b80000;
+}
+                
