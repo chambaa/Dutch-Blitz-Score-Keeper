@@ -3,27 +3,40 @@
 import { useState } from 'react'
 import logo from './assets/dutch-blitz-logo.png'
 import './App.css'
-import NumberOfPlayersInput from './NumberOfPlayersInput'
+import GameConfiguration from './GameConfiguration'
 import PlayerScoring from './PlayerScoring'
+import PlaceIndicator from './PlaceIndicator'
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material'
 
 
 
 function App() {
   const [numPlayers, setNumPlayers] = useState(4);
+  const [numPoints, setNumPoints] = useState(75);
   const [playerNames, setPlayerNames] = useState<string[] | null>(null);
   const [positivePoints, setPositivePoints] = useState<number[]>([]);
   const [negativeCards, setNegativeCards] = useState<number[]>([]);
   const [totals, setTotals] = useState<number[] | null>(null);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   const handleGo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const input = form.elements.namedItem('numPlayers') as HTMLInputElement;
-    let count = parseInt(input.value, 10);
+    const numPlayersInput = form.elements.namedItem('numPlayers') as HTMLInputElement;
+    const numPointsInput = form.elements.namedItem('numPoints-radio-group') as HTMLInputElement;
+    let count = parseInt(numPlayersInput.value, 10);
     if (isNaN(count) || count < 2) count = 2;
     if (count > 8) count = 8;
     setNumPlayers(count);
-    setPlayerNames(Array.from({ length: count }, (_, i) => `Player ${i + 1}`));
+    setNumPoints(parseInt(numPointsInput.value, 10) || 75);
+    setPlayerNames(Array.from({ length: count }, (_, i) => `Player ${i + 1} ✎`));
     setPositivePoints(Array(count).fill(0));
     setNegativeCards(Array(count).fill(0));
     setTotals(null);
@@ -53,8 +66,34 @@ function App() {
     if (!playerNames) return;
     setTotals(prevTotals => {
       const prev = prevTotals && prevTotals.length === playerNames.length ? prevTotals : Array(playerNames.length).fill(0);
-      return playerNames.map((_, idx) => prev[idx] + positivePoints[idx] + (negativeCards[idx] * -2));
+      return playerNames.map((_, idx) => {
+        const newPlayerTotal = prev[idx] + positivePoints[idx] + (negativeCards[idx] * -2);
+        if (newPlayerTotal >= numPoints) {
+          handleOpen();
+        }
+        return newPlayerTotal;
+      });
     });
+  };
+
+  const newGameClicked = () => {
+    setPlayerNames(null);
+    setNumPlayers(4);
+    setPositivePoints([]);
+    setNegativeCards([]);
+    handleClose();
+  };
+
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
   };
 
   return (
@@ -63,23 +102,17 @@ function App() {
         <img src={logo} alt="dutch-blitz" className="db-logo" />
         <button
           className="db-blue-btn"
-          onClick={() => {
-            setPlayerNames(null);
-            setNumPlayers(4);
-            setPositivePoints([]);
-            setNegativeCards([]);
-          }}
+          onClick={newGameClicked}
         >
           New Game
         </button>
       </header>
       <div className="db-main-content">
         {!playerNames && (
-          <NumberOfPlayersInput numPlayers={numPlayers} onSubmit={handleGo} />
+          <GameConfiguration numPlayers={numPlayers} onSubmit={handleGo} />
         )}
         {playerNames && (
           <div className="db-player-totals-row">
-            {/* Player Inputs Column */}
             <PlayerScoring
               playerNames={playerNames}
               positivePoints={positivePoints}
@@ -88,14 +121,20 @@ function App() {
               handlePositiveChange={handlePositiveChange}
               handleNegativeChange={handleNegativeChange}
               handleCalculate={handleCalculate}
+              totals={totals}
             />
-            {/* Totals Column */}
             {totals && (
               <div className="db-totals-col">
                 <div className="db-title">Total</div>
                   {totals.map((total, idx) => (
-                    <div key={idx} className={`db-total-value${total >= 0 ? ' db-total-pos' : ' db-total-neg'}`}>
-                      {total}
+                    <div className="db-player-row">
+                      <div key={idx} className={`db-total-value${total >= 0 ? ' db-total-pos' : ' db-total-neg'}`}>
+                        {total}
+                      </div>
+                      <PlaceIndicator
+                        totals={totals}
+                        idex={idx}
+                      />
                     </div>
                 ))}
               </div>
@@ -103,6 +142,35 @@ function App() {
           </div>
         )}
       </div>
+
+      <Modal
+        aria-labelledby="end-game-modal-title"
+        aria-describedby="end-game-modal-description"
+        open={openModal}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={openModal}>
+          <Box sx={modalStyle}>
+            <Typography id="end-game-modal-title" variant="h6" component="h2">
+              Game Over!
+            </Typography>
+            <Typography id="end-game-modal-description" sx={{ mt: 2 }}>
+              The winner is: {playerNames && totals ? playerNames[totals.findIndex(t => t === Math.max(...totals))] : 'Player 1'}
+            </Typography>
+            <div className="db-modal-btn-row">
+              <Button onClick={handleClose}>Close</Button>
+              <Button onClick={newGameClicked}>New Game</Button>
+            </div>
+          </Box>
+        </Fade>
+      </Modal>
     </>
   );
 }
