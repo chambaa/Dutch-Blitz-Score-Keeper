@@ -21,7 +21,7 @@ function App() {
   const [playerNames, setPlayerNames] = useState<string[] | null>(null);
   const [positivePoints, setPositivePoints] = useState<number[]>([]);
   const [negativeCards, setNegativeCards] = useState<number[]>([]);
-  const [totals, setTotals] = useState<number[] | null>(null);
+  const [totals, setTotals] = useState<number[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
@@ -39,7 +39,7 @@ function App() {
     setPlayerNames(Array.from({ length: count }, (_, i) => `Player ${i + 1} ✎`));
     setPositivePoints(Array(count).fill(0));
     setNegativeCards(Array(count).fill(0));
-    setTotals(null);
+    setTotals(Array(count).fill(0));
   };
 
   const handleNameChange = (idx: number, value: string) => {
@@ -120,10 +120,8 @@ function App() {
               handleNameChange={handleNameChange}
               handlePositiveChange={handlePositiveChange}
               handleNegativeChange={handleNegativeChange}
-              handleCalculate={handleCalculate}
-              totals={totals}
             />
-            {totals && (
+            {(
               <div className="db-totals-col">
                 <div className="db-title">Total</div>
                   {totals.map((total, idx) => (
@@ -137,6 +135,11 @@ function App() {
                       />
                     </div>
                 ))}
+                <div className="db-calc-btn-row">
+                  <button className="db-blue-btn" style={{ minWidth: '120px', marginTop: '2rem' }} onClick={handleCalculate}>
+                    Calculate
+                  </button>
+                </div>
               </div>
             )}
           </div>

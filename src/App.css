@@ -217,22 +217,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 0.75rem;
-  gap: 1rem;
-}
-
-.db-calc-btn-row {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 2rem;
-}
-
-.db-calc-btn {
-  min-width: 120px;
+  gap: 2rem;
 }
 
 .db-totals-col {
-  margin-left: 2.5rem;
+  margin-left: 8rem;
   min-width: 120px;
   display: flex;
   flex-direction: column;
@@ -243,7 +232,7 @@
   font-size: 1rem;
   border-radius: 10px;
   padding: 7px;
-  min-width: 80px;
+  min-width: 100px;
   text-align: center;
 }
 

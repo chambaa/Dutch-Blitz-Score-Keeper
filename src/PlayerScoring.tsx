@@ -7,8 +7,6 @@ interface PlayerScoringProps {
   handleNameChange: (idx: number, value: string) => void;
   handlePositiveChange: (idx: number, value: string) => void;
   handleNegativeChange: (idx: number, value: string) => void;
-  handleCalculate: React.MouseEventHandler<HTMLButtonElement>;
-  totals?: number[] | null;
 }
 
 
@@ -18,19 +16,12 @@ const PlayerScoring: React.FC<PlayerScoringProps> = ({
   negativeCards, 
   handleNameChange, 
   handlePositiveChange, 
-  handleNegativeChange, 
-  handleCalculate,
-  totals
+  handleNegativeChange,
 }) => {
-  let leaderIdx: number | null = null;
-  if (totals && totals.length > 0) {
-    const max = Math.max(...totals);
-    leaderIdx = totals.findIndex(t => t === max);
-  }
   return (
     <div className="db-player-inputs-col">
       <div className="db-player-title-row">
-        <div className="db-title" style={{marginRight: '180px'}}>Players</div>
+        <div className="db-title" style={{marginRight: '200px'}}>Players</div>
         <div className="db-title" style={{marginRight: '45px'}}>Positive Points</div>
         <div className="db-title">Negative Cards</div>
       </div>
@@ -64,11 +55,6 @@ const PlayerScoring: React.FC<PlayerScoringProps> = ({
           />
         </div>
       ))}
-      <div className="db-calc-btn-row">
-        <button className="db-blue-btn" style={{ minWidth: '120px' }} onClick={handleCalculate}>
-          Calculate
-        </button>
-      </div>
     </div>
   );
 };

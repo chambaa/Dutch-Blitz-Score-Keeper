@@ -18,9 +18,9 @@ const PlaceIndicator: React.FC<PlaceIndicatorProps> = ({ totals, idex }) => {
   return (
     <span>
       {leaderIdx === idex ? (
-        <span title="Leader" style={{ marginLeft: 5, color: '#f7b500', fontSize: '1.3em', display: 'flex', alignItems: 'center' }}>★</span>
+        <span title="Leader" style={{ marginLeft: 5, color: '#f7b500', fontSize: '1.2em', display: 'flex', alignItems: 'center' }}>★</span>
       ) : loserIdx === idex ? (
-        <span title="Loser" style={{ marginLeft: 5, fontSize: '1.3em', display: 'flex', alignItems: 'center' }}>😞</span>
+        <span title="Loser" style={{ marginLeft: 5, fontSize: '1.2em', display: 'flex', alignItems: 'center' }}>😞</span>
       ) : null}
     </span>
   );
